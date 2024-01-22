@@ -1,18 +1,27 @@
 'use strict'
 
-const customerController = require('../controllers/customer')
-const { ensureAuth } = require('../services/authenticated')
 const express = require('express')
-const api = express.Router()
+const router = express.Router()
+const { ensureAuth } = require('../services/authenticated')
+const CustomerController = require('../controllers/customer')
 
-//Todas las rutas
-api.post('/login', customerController.login)
-api.post('/register', customerController.register)
-api.get('/getInfo', ensureAuth, customerController.getYourInfo)
-api.get('/getPackages', ensureAuth, customerController.getYourPackages)
-api.put('/updatePassword/:id', ensureAuth, customerController.updatePassword)
-api.put('/updateProfile', ensureAuth, customerController.editYourAccount)
-api.delete('/deleteProfile', ensureAuth, customerController.deleteAccount)
+class CustomerRouter {
+    constructor() {
+        this.controller = new CustomerController()
+        this.init()
+    }
 
-module.exports = api
+    init() {
+        router.post('/login', this.controller.login)
+        router.post('/register', this.controller.register)
+        router.get('/getInfo', ensureAuth, this.controller.getYourInfo)
+        router.get('/getPackages', ensureAuth, this.controller.getYourPackages)
+        router.put('/updatePassword/:id', ensureAuth, this.controller.updatePassword)
+        router.put('/updateProfile', ensureAuth, this.controller.editYourAccount)
+        router.delete('/deleteProfile', ensureAuth, this.controller.deleteAccount)
+    }
+}
 
+new CustomerRouter()
+
+module.exports = router
