@@ -18,4 +18,5 @@ const checkPassowrd = async (password, hash)=> {
     }
 }
 
+module.exports = bcrypt
 module.exports = checkPassowrd
