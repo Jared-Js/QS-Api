@@ -9,11 +9,11 @@ const custommers = sequalize.define('customers', {
         primaryKey: true,
         allowNull: false
     }, 
-    nane:{
+    name:{
         type: DataTypes.STRING,
         allowNull: false
     },
-    lastname: {
+    lastName: {
         type: DataTypes.STRING,
         allowNull: false 
     },
@@ -29,6 +29,10 @@ const custommers = sequalize.define('customers', {
         }
     },
     phone: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }, 
+    password:{
         type: DataTypes.STRING,
         allowNull: false
     }
