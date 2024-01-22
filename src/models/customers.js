@@ -32,4 +32,6 @@ const custommers = sequalize.define('customers', {
         type: DataTypes.STRING,
         allowNull: false
     }
-})
+});
+
+module.exports = custommers

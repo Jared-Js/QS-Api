@@ -27,4 +27,6 @@ const status = sequelize.define('status', {
     }, {
         tableName:"status",
         timestamps: true // Habilita los campos createdAt y updatedAt
-})
+});
+
+module.exports = status;
