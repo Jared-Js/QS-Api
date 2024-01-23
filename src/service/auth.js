@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const ensureAuth  = (req, res, next) => {
+ exports.ensureAuth  = (req, res, next) => {
     if(!req.headers.authorization){
         return res.status(403).send({message:`without "Authorization"`})
     } else {
@@ -19,4 +19,3 @@ const ensureAuth  = (req, res, next) => {
     }
 }
 
-module.exports = ensureAuth

@@ -1,7 +1,7 @@
 const Customers = require('../models/customers')
 const Packages = require('../models/packages')
 const createToken = require('../service/jwt')
-const checkPassowrd = require('../utils/validates')
+const checkPassword = require('../utils/validates')
 
 exports.login = async(req, res) => {
     try{
@@ -47,9 +47,7 @@ const generateRandomCode = () => {
 
 exports.register = async(req, res) => {
     try{
-        let data = req.body
-        if(!data.name || data.name == '' || !data.surname || data.surname == '' || !data.email || data.email == '' ||
-            !data.password || data.password == '') return res.status(402).send({message: 'This params are requerited'}); 
+        let data = req.body 
         let emailExist = await Customers.findOne({
             where: {
                 email: data.email

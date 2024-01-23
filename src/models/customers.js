@@ -1,6 +1,5 @@
-const { DataTypes } = require('sequalize');
+const { DataTypes } = require('sequelize');
 const sequalize = require('../config/data');
-const bcrypt = require('bcrypt');
 
 const custommers = sequalize.define('customers', {
     id: {
@@ -13,7 +12,7 @@ const custommers = sequalize.define('customers', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    lastName: {
+    surname: {
         type: DataTypes.STRING,
         allowNull: false 
     },
@@ -36,6 +35,9 @@ const custommers = sequalize.define('customers', {
         type: DataTypes.STRING,
         allowNull: false
     }
+}, {
+    tableName: "customers",
+    timestamps: false
 });
 
 module.exports = custommers

@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const bcrypt = async(password)=> {
+ const encrypt = async(password)=> {
     try{
         return bcrypt.hashSync(password, 10)
     }catch(error){
@@ -18,5 +18,5 @@ const checkPassowrd = async (password, hash)=> {
     }
 }
 
-module.exports = bcrypt
+module.exports = encrypt
 module.exports = checkPassowrd

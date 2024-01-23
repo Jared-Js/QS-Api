@@ -19,10 +19,10 @@ const status = sequelize.define('status', {
     order: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        validate : {
-            isInt:true,
-            min: 1
-            }
+        //validate : {
+            //isInt:true,
+            //min: 1
+            //}
         }
     }, {
         tableName:"status",
