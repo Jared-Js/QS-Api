@@ -12,10 +12,10 @@ const customerRoutes = require('../routes/customers')
 //configura el midleware del analisis
 app.use(express.urlencoded({extended: false}));
 //Crea la aplicacion express
-app.use(express.json());
-app.use(cors())
-app.use(helmet());
-app.use(morgan('dev'));
+app.use(express.json()); 
+app.use(cors())//Para hacer peticiones al navegador
+app.use(helmet()); //inrtegracion de seguridad para el HTTP, que actua como un middleware en express
+
 
 app.use('/customer', customerRoutes)
 exports.initServer = ()=>{
