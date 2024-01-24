@@ -19,7 +19,7 @@ const status = sequelize.define('status', {
     order: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        //validate : {
+        //validate : { //registro de cambios update
             //isInt:true,
             //min: 1
             //}
