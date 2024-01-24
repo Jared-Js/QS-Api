@@ -1,3 +1,7 @@
+drop table if EXISTS users;
+drop table if EXISTS customers;
+drop table if EXISTS packages;
+drop table if EXISTS status;
 
 CREATE TABLE IF NOT EXISTS users(
 	email VARCHAR(45) PRIMARY KEY,
@@ -10,7 +14,7 @@ CREATE TABLE IF NOT EXISTS customers(
 	surname VARCHAR(45) NOT NULL,
 	code VARCHAR(45) NOT NULL,
 	email VARCHAR(45) NOT NULL, 
-	password VARCHAR(45) NOT NULL,
+	password VARCHAR(200) NOT NULL,
 	phone VARCHAR(8) NOT NULL
 );
 
@@ -23,7 +27,7 @@ CREATE TABLE IF NOT EXISTS status(
 
 CREATE TABLE IF NOT EXISTS packages(
 	id BIGSERIAL PRIMARY KEY,
-	tracking VARCHAR(45) NOT NULL,
+	tracking INTEGER NOT NULL,
 	weight decimal(8, 2) NOT NULL,
 	description VARCHAR(255) NOT NULL,
 	state_id INTEGER NOT NULL,
@@ -52,14 +56,23 @@ INSERT INTO status (name, description, quantity_package) VALUES
 
 -- Datos para la tabla 'packages'
 INSERT INTO packages (tracking, weight, description, state_id, customer_id) VALUES
-('TRK1', 2.5, 'Small Box', 1, 3),
-('TRK2', 5.8, 'Medium Box', 3, 2),
-('TRK3', 1.3, 'Envelope', 2, 1);
+(5757, 2.5, 'Small Box', 4, 4),
+(5758, 5.8, 'Medium Box', 5, 5),
+(5759, 1.3, 'Envelope', 7, 6),
+(5760, 1.3, 'Envelope', 7, 10);
+INSERT INTO packages (tracking, weight, description, state_id, customer_id) VALUES
+(5760, 1.3, 'Envelope', 7, 10);
 
 select * from customers;
+
+select * from status;
+
 
 SELECT c.name || ' ' || c.surname AS "client", c.code, c.email, c.phone, p.id AS "package", p.tracking, s.name AS "state" FROM packages p 
 JOIN status s ON p.state_id = s.id
 JOIN customers c ON p.customer_id = c.id; -- WHERE c.id = 3;
 
 SELECT * FROM packages;
+
+
+SELECT * FROM customers;
