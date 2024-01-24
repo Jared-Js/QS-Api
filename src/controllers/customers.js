@@ -1,7 +1,9 @@
 const Customers = require('../models/customers')
 const Packages = require('../models/packages')
+const {checkPassword, encrypt} = require ('../utils/validates')
 const createToken = require('../service/jwt')
-const checkPassword = require('../utils/validates')
+const { compare } = require('bcrypt')
+
 
 exports.login = async(req, res) => {
     try{
@@ -14,6 +16,8 @@ exports.login = async(req, res) => {
 
         })
         if(!customerCredentials) return res.status(404).send({message: 'Email not registred'})
+
+
         if(customerCredentials && await checkPassword(data.password, customerCredentials.password)){
             console.log('Password match!');
             let token = await createToken(customerCredentials)
@@ -28,23 +32,6 @@ exports.login = async(req, res) => {
     }
 }
 
-const generateRandomCode = () => {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const numbers = '0123456789';
-
-    let code = '';
-    
-    for (let i = 0; i < 3; i++) {
-        code += letters.charAt(Math.floor(Math.random() * letters.length));
-    }
-
-    for (let i = 0; i < 3; i++){
-        code += numbers.charAt(Math.floor(Math.random() * numbers.length));
-    }
-
-    return code;
-};
-
 exports.register = async(req, res) => {
     try{
         let data = req.body 
@@ -58,7 +45,7 @@ exports.register = async(req, res) => {
         const newCustomer = await Customers.create({
             name: data.name,
             surname: data.surname,
-            code: generateRandomCode(),
+            code: data.code,
             email: data.email,
             phone: data.phone,
             password: data.password
@@ -73,7 +60,7 @@ exports.register = async(req, res) => {
 
 exports.getYourInfo = async(req, res) => {
     try{
-        let customerId = req.user.sub
+        const customerId = req.params.id
         let customerExist = await Customers.findOne({
             where:{
                 id: customerId
@@ -95,7 +82,7 @@ exports.getYourPackages = async(req, res) => {
         let customerId = req.user.sub
         let packages = await Packages.findAll({
             where: {
-                status_id: customerId
+                state_id: customerId
             },
             attributes: {
                 exclude: ['id']
