@@ -24,7 +24,7 @@ const packages = sequelize.define('packages', {
     }
     }, {
         tableName: 'packages',
-        timestamps: true
+        timestamps: false
     
 })
 
