@@ -60,7 +60,7 @@ exports.register = async(req, res) => {
 
 exports.getYourInfo = async(req, res) => {
     try{
-        const customerId = req.params.id
+        const customerId = req.user.sub;
         let customerExist = await Customers.findOne({
             where:{
                 id: customerId
@@ -82,7 +82,7 @@ exports.getYourPackages = async(req, res) => {
         let customerId = req.user.sub
         let packages = await Packages.findAll({
             where: {
-                state_id: customerId
+                customer_id: customerId
             },
             attributes: {
                 exclude: ['id']
